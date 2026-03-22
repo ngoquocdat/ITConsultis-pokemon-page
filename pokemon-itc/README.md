@@ -86,7 +86,8 @@ This project demonstrates understanding of:
 - Maintains pagination state during filter changes
 
 ## Development Timeline
-- **Total Development Time**: 4 hours 20 minutes
+- **Additional Development Time**: ~ 1 hour 10 minutes (further refined the implementation and introduced additional components to ensure proper edge case handling and overall robustness)
+- **Total Development Time**: 5 hours 30 minutes (including the additional effort)
 - **Focus Areas**: Architecture design, data fetching implementation, component optimization, and documentation
 
 ## How to run
