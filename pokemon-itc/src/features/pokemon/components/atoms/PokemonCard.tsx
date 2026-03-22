@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { PokemonGifBaseUrl, PokemonImagesBaseUrl } from "../../api/APIroutes";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   };
 };
 
-export default function PokemonCard({ pokemon }: Props) {
+const PokemonCard = ({ pokemon }: Props) => {
   const id = pokemon.url.split("/").filter(Boolean).pop();
 
   const initialImage = `${PokemonGifBaseUrl}/${id}.gif`;
@@ -29,3 +29,5 @@ export default function PokemonCard({ pokemon }: Props) {
     </div>
   );
 }
+
+export default memo(PokemonCard);

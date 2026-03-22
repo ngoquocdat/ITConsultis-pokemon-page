@@ -2,6 +2,7 @@ import { useState } from "react";
 import PokemonTypes from "../atoms/PokemonTypes";
 import PokemonCard from "../atoms/PokemonCard";
 import PaginationControls from "../atoms/PaginationControls";
+import EmptyState from "../../../../shared/ui/EmptyPokemon";
 
 const LIMIT = 20;
 
@@ -29,7 +30,9 @@ export default function PokemonListFiltered({
 
   return (
     <div>
-      <p className="mb-2 text-gray-600">Total count: {pokemonByType?.length ?? 0}</p>
+      <p className="mb-2 text-gray-600">
+        Total count: {pokemonByType?.length ?? 0}
+      </p>
 
       <div className="mb-2">
         <p className="mb-2 font-medium">Types:</p>
@@ -44,11 +47,18 @@ export default function PokemonListFiltered({
         />
       </div>
 
-      <div className="grid grid-cols-5 gap-4 min-h-96">
-        {paginatedResults?.map((p) => (
-          <PokemonCard key={p.name} pokemon={p} />
-        ))}
-      </div>
+      {pokemonByType?.length === 0 ? (
+        <EmptyState
+          title={"No Pokémon available"}
+          description={"There is no data to display."}
+        />
+      ) : (
+        <div className="grid grid-cols-5 gap-4 min-h-90">
+          {paginatedResults?.map((p) => (
+            <PokemonCard key={p.name} pokemon={p} />
+          ))}
+        </div>
+      )}
 
       <PaginationControls
         currentPage={typeFilterPage}

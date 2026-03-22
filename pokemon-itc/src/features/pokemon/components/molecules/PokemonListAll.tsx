@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PokemonTypes from "../atoms/PokemonTypes";
 import PokemonCard from "../atoms/PokemonCard";
 import PokemonCardSkeleton from "../atoms/PokemonCardSkeleton";

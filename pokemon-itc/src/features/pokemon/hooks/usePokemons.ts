@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPokemons } from "../api/APIMethods/getPokemons";
 import { useCallback, useMemo, useState } from "react";
 import { getPokemonByType, getTypes } from "../api/APIMethods/getPokemonTypes";
+import { PokemonListResponse } from "../api/types";
 import { deduplicatePokemon } from "../utils";
 
 // Query key constants for maintainability and cache management
@@ -13,7 +14,11 @@ const QUERY_KEYS = {
   pokemonByType: (types: string[]) => ["pokemon.byType", types] as const,
 } as const;
 
-export const usePokemons = (offset: number, limit: number) => {
+export const usePokemons = (
+  offset: number,
+  limit: number,
+  initialData?: PokemonListResponse
+) => {
   const [typesSelected, setSelectTypes] = useState<string[]>([]);
 
   // Memoize the deduplicate function to prevent recreation on every render
@@ -41,7 +46,9 @@ export const usePokemons = (offset: number, limit: number) => {
   } = useQuery({
     queryKey: QUERY_KEYS.pokemons(offset),
     queryFn: () => getPokemons(offset, limit),
-    staleTime: 5 * 60 * 1000
+    staleTime: Infinity,
+    gcTime: 30 * 60 * 1000,
+    initialData: offset === 0 ? initialData : undefined,
   });
 
   const {
